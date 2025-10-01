@@ -11,7 +11,7 @@ void fill_diag(int n, double* matrix) {
     }
     return;
 }
-// (x, y)
+// скалярное произведение (x, y)
 double ddot(int n, const double* x, const double* y) {
     double sum = 0.0;
     #pragma omp parallel for reduction(+:sum) schedule(static)
@@ -49,7 +49,7 @@ void dscal(int n, double alpha, double* x) {
     }
     return;
 }
-// CG: решение СЛАУ matrix * y = x
+// решение СЛАУ: matrix * y = x методом CG
 void CG(int n, double eps, const double* matrix, const double* f, double* x) {
     int iter = 0;
     double alpha, beta, rr;
