@@ -3,11 +3,11 @@
 #include <iostream>
 using namespace std;
 
-// заполнить диагональ матрицы
-void fill_diag(int n, double* matrix) {
+// скорректировать диагональ матрицы
+void correct_diag(int n, double* matrix) {
     #pragma omp parallel for schedule(static)
     for (int i = 0; i < n; ++i) {
-        matrix[i * n + i] = 1.0 + (double)(i + 1) / (10 * n);
+        matrix[i * n + i] += (double)(i + 1) / (10 * n);
     }
     return;
 }
@@ -70,16 +70,15 @@ void CG(int n, double eps, const double* matrix, const double* f, double* x) {
         dscal(n, beta, p.data());
         daxpy(n, 1.0, r.data(), p.data());
         iter++;
-        //if (iter % 1 == 0) cout << iter << ' ' << eps << ' ' << sqrt(rr) << endl;
+        //if (iter % 10 == 0) cout << iter << ' ' << eps << ' ' << sqrt(rr) << endl;
     }
-    cout << iter << ' ';
     return;
 }
 // 
 void procedure(int n) {
     double eps = pow(10, -8);
     vector<double> matrix(n * n, 1.0);
-    fill_diag(n, matrix.data());
+    correct_diag(n, matrix.data());
     vector<double> f(n, 1.0);
     vector<double> x(n);
     double start = omp_get_wtime();
