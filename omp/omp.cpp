@@ -49,13 +49,12 @@ void dscal(int n, double alpha, double* x) {
     }
     return;
 }
-// решение СЛАУ: matrix * y = x методом CG
+// решение СЛАУ: matrix * x = f методом CG
 void CG(int n, double eps, const double* matrix, const double* f, double* x) {
     int iter = 0;
     double alpha, beta, rr;
     eps *= sqrt(ddot(n, f, f));
     vector<double> r(n), p(n), Ap(n);
-
     memcpy(r.data(), f, n * sizeof(double));
     memcpy(p.data(), r.data(), n * sizeof(double));
     rr = ddot(n, r.data(), r.data());
