@@ -80,7 +80,7 @@ void procedure(int n) {
     vector<double> matrix(n * n, 1.0);
     correct_diag(n, matrix.data());
     vector<double> f(n, 1.0);
-    vector<double> x(n);
+    vector<double> x(n, 0.0);
     double start = omp_get_wtime();
     CG(n, eps, matrix.data(), f.data(), x.data());
     double end = omp_get_wtime();
